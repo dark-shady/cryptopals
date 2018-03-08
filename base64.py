@@ -116,7 +116,7 @@ if __name__ == "__main__":
         if sys.argv[1].lower() not in ["hex", "ascii"]:
             print("Format: base64.py hex/ascii STRING")
             exit(1)
-        print(base64(sys.argv[2], "ascii"))
+        print(base64(sys.argv[2], sys.argv[1]))
     else:
         # Default to test string
         print(base64(test_string_ascii, "ascii"))
