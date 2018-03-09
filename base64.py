@@ -3,9 +3,16 @@ base64characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234567
 
 
 def char_to_binary(char_to_convert, original_format):
-    '''
-    Convert single character to 8 bit binary number.
-    '''
+    """
+    Convert single character to 8 bit binary number
+
+    Args:
+        char_to_convert (string): single character
+        original_format (string): original format of the character (HEX/ASCII)
+
+    Returns:
+        binary_value (string): 8 bit binary number
+    """
 
     if original_format == "ascii":
         int_value = int(ord(char_to_convert))
@@ -23,9 +30,15 @@ def char_to_binary(char_to_convert, original_format):
 
 
 def binary_to_ascii_char(binary_number):
-    '''
-    Convert 6 bit binary number to integer by iterating from 5 to 0 and checking against 1 or 0 in binary_number in corresponding index.
-    '''
+    """
+    Convert 6 bit binary number to base64 character
+
+    Args:
+        binary_number (string): 6 bit binary number
+
+    Returns:
+        base64characters (string): binary_number converted to base64 character
+    """
 
     int_value = 0
     binary_number = binary_number[::-1]
@@ -36,9 +49,16 @@ def binary_to_ascii_char(binary_number):
 
 
 def string_to_binary(string_to_convert, original_format):
-    '''
+    """
     Convert ascii/hex string to binary string
-    '''
+
+    Args:
+        string_to_convert (string): ASCII/HEX string
+        original_format (string): original format of the string (HEX/ASCII)
+
+    Returns:
+        binary_output (string): string_to_convert converted to a string of binary numbers
+    """
 
     binary_output = ""
     for character in string_to_convert:
@@ -51,9 +71,15 @@ def string_to_binary(string_to_convert, original_format):
 
 
 def binary_to_base64(string_to_convert):
-    '''
+    """
     Convert binary string to base64 string
-    '''
+
+    Args:
+        string_to_convert (string): a string of binary numbers
+
+    Returns:
+        base64_output (string): string_to_convert converted to a string of base64 characters
+    """
 
     length_of_string, string_index = len(string_to_convert), 0
     base64_output = ""
@@ -77,6 +103,18 @@ def binary_to_base64(string_to_convert):
 
 
 def base64(string_to_convert, original_format):
+    """
+    Main function.  Decides how to convert string based on input of the string's original format
+
+    Args:
+        string_to_convert (string): ASCII/HEX string
+        original_format (string): original format of the string (HEX/ASCII)
+
+    Returns:
+        String of base64 characters
+
+    """
+
     if original_format == "ascii":
         binary_string = string_to_binary(string_to_convert, "ascii")
     elif original_format == "hex":
