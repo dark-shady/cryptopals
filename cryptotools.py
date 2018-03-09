@@ -1,14 +1,41 @@
 base64characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
 
+
+def hamming_distance(string1, string2):
+    """
+    Implements hamming distance on two strings
+    Args:
+        string1, string2 (string): two strings of equal length_of_string
+    Returns:
+        Hamming distance (int) of the two strings
+    Raises:
+        ValueError if two inputs are not same length
+    """
+
+    if len(string1) != len(string2):
+        raise ValueError('string1 and string2 are not equal length')
+    return sum(el1 != el2 for el1, el2 in zip(string1, string2))
+
+
 def repeating_key_xor(string_to_convert, key):
+    """
+    Implements repeating key XOR
+    Args:
+        string_to_convert (string): binary string
+        key (string): key
+    Returns:
+        output (string): Binary string with space delimiter per 8 bits
+    """
+
     output = ""
     i = 0
     for c in string_to_convert:
         c_binary = string_to_binary(c, "ascii")
-        output += xor(c_binary, string_to_binary(key[i % len(key)],"ascii")) + " "
+        output += xor(c_binary, string_to_binary(key[i % len(key)], "ascii")) + " "
         i += 1
-        
+
     return output
+
 
 def binary_to_hex(string_to_convert):
     """
@@ -18,7 +45,9 @@ def binary_to_hex(string_to_convert):
     Returns:
         string of HEX values with no spaces
     """
+
     return ''.join('{0:02x}'.format(int(a, 2)) for a in string_to_convert.split())
+
 
 def binary_to_ascii(string_to_convert):
     """
@@ -28,14 +57,15 @@ def binary_to_ascii(string_to_convert):
     Returns:
         ascii_string (string): ASCII string
     """
-    
+
     length_of_string, string_index = len(string_to_convert), 0
     ascii_string = ""
-    
+
     while string_index < length_of_string:
         ascii_string += binary_to_ascii_char(string_to_convert[string_index:string_index+8])
         string_index += 8
     return ascii_string
+
 
 def binary_to_ascii_char(binary_string):
     """
@@ -51,7 +81,8 @@ def binary_to_ascii_char(binary_string):
         if binary_string[i] == '1':
             int_value += 2**i
     return chr(int_value)
-    
+
+
 def char_to_binary(char_to_convert, original_format):
     """
     Convert single character to 8 bit binary number
@@ -68,7 +99,7 @@ def char_to_binary(char_to_convert, original_format):
         int_value = int(char_to_convert, 16)
     elif original_format == "decimal":
         int_value = int(char_to_convert)
-        
+
     binary_value = ""
     for i in range(7, -1, -1):
         if int_value / 2**i < 1:
@@ -172,7 +203,7 @@ def xor(string1, string2):
         string2 (string): binary string
     Returns:
         A binary string of the XOR results of string1 and string2
- 
+
     Raises:
         TypeError: string1 and string2 are not equal size
     """
@@ -183,9 +214,9 @@ def xor(string1, string2):
     i = 0
     xor_result = ""
     while i < string_length:
-      if string1[i] == string2[i]:
-        xor_result += '0'
-      elif string1[i] == '1' or string2[i] == '1':
-        xor_result += '1'
-      i +=1
+        if string1[i] == string2[i]:
+            xor_result += '0'
+        elif string1[i] == '1' or string2[i] == '1':
+            xor_result += '1'
+        i += 1
     return xor_result
