@@ -1,5 +1,24 @@
 base64characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
 
+def repeating_key_xor(string_to_convert, key):
+    output = ""
+    i = 0
+    for c in string_to_convert:
+        c_binary = string_to_binary(c, "ascii")
+        output += xor(c_binary, string_to_binary(key[i % len(key)],"ascii")) + " "
+        i += 1
+        
+    return output
+
+def binary_to_hex(string_to_convert):
+    """
+    Convert binary string to HEX string
+    Args:
+        string_to_convert (string): binary string
+    Returns:
+        string of HEX values with no spaces
+    """
+    return ''.join('{0:02x}'.format(int(a, 2)) for a in string_to_convert.split())
 
 def binary_to_ascii(string_to_convert):
     """
@@ -148,11 +167,9 @@ def base64(string_to_convert, original_format):
 def xor(string1, string2):
     """
     Take two binary strings and XOR them
-
     Args:
         string1 (string): binary string
         string2 (string): binary string
-
     Returns:
         A binary string of the XOR results of string1 and string2
  
@@ -172,4 +189,3 @@ def xor(string1, string2):
         xor_result += '1'
       i +=1
     return xor_result
-        
