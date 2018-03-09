@@ -109,3 +109,33 @@ def base64(string_to_convert, original_format):
         binary_string = string_to_binary(string_to_convert, "hex")
 
     return binary_to_base64(binary_string)
+
+
+def xor(string1, string2):
+    """
+    Take two binary strings and XOR them
+
+    Args:
+        string1 (string): binary string
+        string2 (string): binary string
+
+    Returns:
+        A binary string of the XOR results of string1 and string2
+ 
+    Raises:
+        TypeError: string1 and string2 are not equal size
+    """
+    string_length = len(string1)
+    if string_length != len(string2):
+        raise TypeError('string1 and string2 must be the same size')
+
+    i = 0
+    xor_result = ""
+    while i < string_length:
+      if string1[i] == string2[i]:
+        xor_result += '0'
+      elif string1[i] == '1' or string2[i] == '1':
+        xor_result += '1'
+      i +=1
+    return xor_result
+        
