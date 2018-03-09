@@ -1,6 +1,38 @@
 base64characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
 
 
+def binary_to_ascii(string_to_convert):
+    """
+    Convert binary string to ASCII string
+    Args:
+        string_to_convert (string): binary string
+    Returns:
+        ascii_string (string): ASCII string
+    """
+    
+    length_of_string, string_index = len(string_to_convert), 0
+    ascii_string = ""
+    
+    while string_index < length_of_string:
+        ascii_string += binary_to_ascii_char(string_to_convert[string_index:string_index+8])
+        string_index += 8
+    return ascii_string
+
+def binary_to_ascii_char(binary_string):
+    """
+    Convert 8 bit binary number to ASCII character
+    Args:
+        binary_string (string): 8 bit binary string
+    Returns:
+        ascii_char (chr): ASCII character
+    """
+    int_value = 0
+    binary_string = binary_string[::-1]
+    for i in range(7, -1, -1):
+        if binary_string[i] == '1':
+            int_value += 2**i
+    return chr(int_value)
+    
 def char_to_binary(char_to_convert, original_format):
     """
     Convert single character to 8 bit binary number
@@ -15,7 +47,9 @@ def char_to_binary(char_to_convert, original_format):
         int_value = int(ord(char_to_convert))
     elif original_format == "hex":
         int_value = int(char_to_convert, 16)
-
+    elif original_format == "decimal":
+        int_value = int(char_to_convert)
+        
     binary_value = ""
     for i in range(7, -1, -1):
         if int_value / 2**i < 1:
@@ -26,7 +60,7 @@ def char_to_binary(char_to_convert, original_format):
     return binary_value
 
 
-def binary_to_ascii_char(binary_number):
+def binary_to_base64_char(binary_number):
     """
     Convert 6 bit binary number to base64 character
     Args:
@@ -79,15 +113,15 @@ def binary_to_base64(string_to_convert):
 
         if remaining_bits == 4:
             # Padding 1 character
-            base64_output += binary_to_ascii_char(string_to_convert[string_index:string_index+4] + "00")
+            base64_output += binary_to_base64_char(string_to_convert[string_index:string_index+4] + "00")
             base64_output += "="
         elif remaining_bits == 2:
             # Padding 2 characters
-            base64_output += binary_to_ascii_char(string_to_convert[string_index:string_index+2] + "0000")
+            base64_output += binary_to_base64_char(string_to_convert[string_index:string_index+2] + "0000")
             base64_output += "=="
         else:
             # No padding
-            base64_output += binary_to_ascii_char(string_to_convert[string_index:string_index+6])
+            base64_output += binary_to_base64_char(string_to_convert[string_index:string_index+6])
         string_index += 6
 
     return base64_output
